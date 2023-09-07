@@ -10,11 +10,13 @@ pipelines:
           name: Test Code
           script:
             - export DOCKER_BUILDKIT=0
+            - curl -L "https://github.com/docker/compose/releases/download/v2.16.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
             - docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"
       - step:
           name: Lint Code
           script:
             - export DOCKER_BUILDKIT=0
+            - curl -L "https://github.com/docker/compose/releases/download/v2.16.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
             - docker-compose run --rm app sh -c "flake8"
 
             
